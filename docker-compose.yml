@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+
+  # ── PostgreSQL Database ────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: hotel_booking_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: hotel_booking
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # Optional: run init script on first launch
+      # - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ── ASP.NET Core API ───────────────────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hotel_booking_api
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: >
+        Host=postgres;Port=5432;Database=hotel_booking;Username=postgres;Password=postgres
+      Auth0__Domain: ${AUTH0_DOMAIN}
+      Auth0__Audience: ${AUTH0_AUDIENCE}
+      Slack__WebhookUrl: ${SLACK_WEBHOOK_URL}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./logs:/app/logs   # Persist logs outside the container
+
+volumes:
+  postgres_data:

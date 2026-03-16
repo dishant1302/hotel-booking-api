@@ -1,0 +1,4 @@
+git remote add origin https://github.com/YOUR_USERNAME/hotel-booking-api.git
+git push -u origin main
+
+postgresql://hotel_booking_db_fuwe_user:LAqIryi6bV3uO7UhKwb1qIIR4yctjxFW@dpg-d6rst77gi27c73cpe6mg-a/hotel_booking_db_fuwe

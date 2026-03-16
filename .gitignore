@@ -1,0 +1,67 @@
+## .NET / C#
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio
+.vs/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.pidb
+*.sln.docstates
+*.sdf
+*.opensdf
+*.db
+*.opendb
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+project.assets.json
+
+# Publish output
+publish/
+
+# User secrets / sensitive config
+appsettings.*.local.json
+secrets.json
+
+# Environment variables — NEVER commit
+.env
+
+# Logs
+logs/
+*.log
+
+# Docker volumes (if mapped locally)
+postgres_data/
